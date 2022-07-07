@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>抽奖</title>
+        <style>
+            .title{text-align:center; line-height:5; width: 220px;height:200px;}
+            .start,.stop{width:100px; height:30px; line-height:30px;font-size:14px;background-color:rgb(255, 0, 0); color:white;float:left;margin-left:10px;text-align:center; cursor:pointer;}
+            .addName{width:100px; height:30px; line-height:30px;font-size:14px;background-color:rgb(53, 53, 53); color:white;float:left;margin-left:10px;text-align:center; cursor:pointer;}
+            .saveName{width:100px; height:30px; line-height:30px;font-size:14px;background-color:rgb(53, 53, 53); color:white;float:left;margin-left:10px;text-align:center; cursor:pointer;}
+            .inputName{width:300px; height:500px; border:3px solid #f8f8f8; visibility: hidden; z-index: 999; opacity: 1; overflow: hidden; background-color: white;text-align: center; border-radius: 10px;}
+            .open{visibility: visible; opacity: 1;}
+        </style>
+    </head>
+    <body leftmargin="70">
+        <div class="title" id="title" >开始抽奖</div>
+        <div class="start" id="start" >开始</div>
+        <div class="stop" id="stop" >停止</div>  
+        <div class="addName" id="addName" >修改候选人</div>
+
+        <div class="inputName" id ="nameData">
+            <form>
+            <div>
+                候选人名单(空格分开)：<br><textarea name="name" id="nameInput" rows="10" cols="38" placeholder="Enter text"></textarea>
+            </div>                   
+            <div class="saveName" id="saveName" >保存</div>
+            </form>
+        </div>
+
+ 
+      <script>
+        var data=['月月给我100w', '月月给我200w', '月月给我300w', '月月给我400w', '月月给我500w'],
+            timer=null,
+            flag=0;
+        var random = 0;
+            
+        window.onload=function(){
+            var start = document.getElementById('start'),
+                stop = document.getElementById('stop');
+                addName = document.getElementById('addName');
+                saveName = document.getElementById('saveName');
+                nameDataForm = document.getElementById('nameData');
+                nameInput = document.getElementById('nameInput');
+ 
+            start.onclick=startFunc;
+            stop.onclick=stopFunc;
+            addName.onclick=addNameFunc;
+            saveName.onclick=saveNameFunc;
+ 
+            document.onkeyup=function(event){
+              event=event||window.event;
+              if(event.keyCode==13){
+                 if(flag==0){
+                   startFun();
+                   flag=1; 
+                 }else{
+                    stopFun();
+                    flag=0;
+                 }
+              }
+            }
+        }
+ 
+        function startFunc(){
+           var title=document.getElementById('title'),
+               start=document.getElementById('start');
+           clearInterval(timer);
+           timer=setInterval(function(){
+             random=Math.floor(Math.random()*data.length);
+             title.innerHTML=data[random];
+           },20)
+           start.style.backgroundColor='#999';
+        }
+         
+        function stopFunc(){
+            var start=document.getElementById('start');
+            clearInterval(timer);
+            start.style.backgroundColor='red';
+        }
+ 
+        function addNameFunc(){
+            nameDataForm.className="inputName open";
+            var showNameStr = "";
+            for(var i = 0; i < data.length; i++)
+            {
+                showNameStr =showNameStr + data[i] + " ";
+            }
+            nameInput.innerText = showNameStr;
+        }
+
+        function saveNameFunc(){
+            nameDataForm.className = "inputName";	
+            var inputStr = nameInput.value;
+            var inputStrs = inputStr.split(" ");
+            data = [];
+            for(var i = 0; i < inputStrs.length; i++)
+            {
+                var curStr = inputStrs[i];
+                if(curStr != "")
+                {
+                    data.push(inputStrs[i])
+                }
+            }
+        }
+      </script>
+    </body>
+</html>
