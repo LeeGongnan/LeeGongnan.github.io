@@ -1,6 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-
 var boxSwitch = null;
 var boxList = ['A', 'B'];
 
@@ -10,27 +7,27 @@ function returnChooseBox(){
 }
  
 function drawCard(inCardNum){
-    var boxFilePath = path.resolve("src/" + boxSwitch + "box");
-    fs.readdir(boxFilePath,function(err,files){
-        if(err){
-          console.warn(err)
-        }else{
-          //遍历读取到的文件列表
-          files.forEach(function(filename){
-            //获取当前文件的绝对路径
-            var filedir = path.join(filePath,filename);
-            //根据文件路径获取文件信息，返回一个fs.Stats对象
-            fs.stat(filedir,function(eror,stats){
-              if(eror){
-                console.warn('获取文件stats失败');
-              }else{
-                var isFile = stats.isFile();//是文件
-                alert(stats);
-              }
-            })
-          });
-        }
-      });
+    var boxFilePath = "src/" + boxSwitch + "box/";
+    var randomRange = boxSwitch == boxList[0] ? 15 : 20;
+    var totalResObj = document.getElementById('resPics');
+    totalResObj.innerHTML = "";
+    for (var i = 0; i < inCardNum; i++)
+    {
+        var result = Math.floor(Math.random()*randomRange) + 1;
+        var picPath = boxFilePath + result.toString() + ".jpg";
+        var resImgObj = document.createElement('img');
+        resImgObj.src = picPath;
+        var textOjb = document.createTextNode("第"+(i+1).toString()+"抽结果：");
+        var brObj = document.createElement('br');
+        brObj.innerHTML = "<br/>";
+        var imgBrObj = document.createElement('br');
+        imgBrObj.innerHTML = "<br/>";
+
+        totalResObj.appendChild(textOjb);
+        totalResObj.appendChild(brObj);
+        totalResObj.appendChild(resImgObj);
+        totalResObj.appendChild(imgBrObj);
+    }
 }
 
 function showDrawButton(){
