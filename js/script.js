@@ -2,8 +2,17 @@ var boxSwitch = null;
 var boxList = ['A', 'B'];
 
 
-function returnChooseBox(){
-    alert(111);
+function returnChooseBoxBtn(){
+    var totalResObj = document.getElementById('resPics');
+    totalResObj.innerHTML = "";
+    for (var i = 0; i < boxList.length; i++)
+    {
+        document.getElementById(boxList[i] + "box").style.display = "block";
+        document.getElementById(boxList[i] + "boxPic").style.display = "block";
+    }
+    document.getElementById("drawOne").style.display = "none";
+    document.getElementById("drawEleven").style.display = "none";
+    document.getElementById("returnChooseBox").style.display = "none";
 }
  
 function drawCard(inCardNum){
@@ -40,6 +49,7 @@ function showDrawButton(){
         }
         document.getElementById("drawOne").style.display = "block";
         document.getElementById("drawEleven").style.display = "block";
+        document.getElementById("returnChooseBox").style.display = "block";
     }
     else
     {
