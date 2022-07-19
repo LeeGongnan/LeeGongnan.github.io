@@ -1,14 +1,18 @@
 var boxSwitch = null;
-var boxList = ['A', 'B'];
+var boxList = {
+    'OrnamentBadgeAbox': 15,
+    'OrnamentBadgeBbox': 20,
+    'MembershipCard': 35,
+};
 
 
 function returnChooseBoxBtn(){
     var totalResObj = document.getElementById('resPics');
     totalResObj.innerHTML = "";
-    for (var i = 0; i < boxList.length; i++)
+    for (var key in boxList)
     {
-        document.getElementById(boxList[i] + "box").style.display = "block";
-        document.getElementById(boxList[i] + "boxPic").style.display = "block";
+        document.getElementById(key).style.display = "block";
+        document.getElementById(key+ "Pic").style.display = "block";
     }
     document.getElementById("drawOne").style.display = "none";
     document.getElementById("drawEleven").style.display = "none";
@@ -16,8 +20,8 @@ function returnChooseBoxBtn(){
 }
  
 function drawCard(inCardNum){
-    var boxFilePath = "src/" + boxSwitch + "box/";
-    var randomRange = boxSwitch == boxList[0] ? 15 : 20;
+    var boxFilePath = "src/" + boxSwitch + "/";
+    var randomRange = boxList[boxSwitch] ;
     var totalResObj = document.getElementById('resPics');
     totalResObj.innerHTML = "";
     for (var i = 0; i < inCardNum; i++)
@@ -42,10 +46,10 @@ function drawCard(inCardNum){
 function showDrawButton(){
     if (boxSwitch != null)
     {
-        for (var i = 0; i < boxList.length; i++)
+        for (var key in boxList)
         {
-            document.getElementById(boxList[i] + "box").style.display = "none";
-            document.getElementById(boxList[i] + "boxPic").style.display = "none";
+            document.getElementById(key).style.display = "none";
+            document.getElementById(key + "Pic").style.display = "none";
         }
         document.getElementById("drawOne").style.display = "block";
         document.getElementById("drawEleven").style.display = "block";
